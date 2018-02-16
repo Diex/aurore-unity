@@ -31,7 +31,7 @@ public class textCreator : MonoBehaviour {
 	{
 		tweet.InScreen = true;
 		tweetText.text = tweet.tweetText;
-		screenName.text = tweet.screenName;
-		userName.text = tweet.name;
+		screenName.text = tweet.name;
+		userName.text = "@"+tweet.screenName;
 	}
 }

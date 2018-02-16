@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 1064389436}
   - component: {fileID: 1064389440}
   - component: {fileID: 1064389441}
+  - component: {fileID: 1064389442}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -353,7 +354,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -365,7 +366,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1064389435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -395,6 +396,18 @@ MonoBehaviour:
   normalMoveSpeed: 20
   slowMoveFactor: 0.25
   fastMoveFactor: 10
+--- !u!114 &1064389442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1064389435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae3e130c22804589b06bddb0dac7b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 300
 --- !u!1 &1115402032
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +610,7 @@ Prefab:
     - target: {fileID: 224923344616591194, guid: 12a587674f75a40968712e15334e5df0,
         type: 2}
       propertyPath: m_LocalPosition.z
-      value: -7869
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 224923344616591194, guid: 12a587674f75a40968712e15334e5df0,
         type: 2}
@@ -673,11 +686,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114959620371437968, guid: 12a587674f75a40968712e15334e5df0,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114959620371437968, guid: 12a587674f75a40968712e15334e5df0,
         type: 2}
@@ -936,6 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textRender: {fileID: 29699122}
   hashtag: {fileID: 1865091377}
+  cam: {fileID: 1064389442}
 --- !u!4 &2082246282
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Main : MonoBehaviour {
 
 	public GameObject textRender;
 	public InputField hashtag;
+	public CameraControl cam;
 
 	private string tag = "#aurore";
 	private ArrayList collectedTweets;
@@ -31,6 +32,7 @@ public class Main : MonoBehaviour {
 	{
 		this.tag = args0;
 		StartCoroutine(getTweets ());
+
 	}
 		
 	IEnumerator getTweets()
@@ -62,23 +64,22 @@ public class Main : MonoBehaviour {
 		return false;
 	}
 
+	private GameObject lastTweet;
+
 	private void ShowTweets()
 	{
 		foreach (TweetSearchTwitterData tweet in collectedTweets) {
 			if (!tweet.InScreen) {				
 				GameObject tc = Instantiate (textRender);
 				tc.GetComponent<textCreator> ().onNewTex (tweet);
-				Invoke ("ShowTweets", 2.0f);
+				lastTweet = tc;
+				Invoke ("ShowTweets", 5.0f);
+				Transform target = tc.transform.Find ("target");
+				cam.moveTo (target);
+				cam.lookAt (tc.transform);
 				return;
 			}
 		}
-
-//		if (!(collectedTweets[0] as TweetSearchTwitterData).InScreen) 
-//		{
-//			GameObject tc = Instantiate (textRender);
-//			tc.GetComponent<textCreator>().onNewTex (collectedTweets[0] as TweetSearchTwitterData);
-//		}
-
 	}
 
 //	IEnumerator LoadData()

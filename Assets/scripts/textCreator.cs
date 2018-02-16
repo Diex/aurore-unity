@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class textCreator : MonoBehaviour {
 
 
-	public Text text;
+	public Text tweetText;
+	public Text screenName;
+	public Text userName;
 
-	// Use this for initialization
 	void Start () {
 //		this.GetComponentInParent<GameObject> ().SetActive (true);
 
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
@@ -29,7 +29,9 @@ public class textCreator : MonoBehaviour {
 
 	public void onNewTex(TweetSearchTwitterData tweet)
 	{
-		text.text = tweet.tweetText;
-
+		tweet.InScreen = true;
+		tweetText.text = tweet.tweetText;
+		screenName.text = tweet.screenName;
+		userName.text = tweet.name;
 	}
 }

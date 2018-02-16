@@ -6,35 +6,11 @@ using System.IO;
 
 public class Main : MonoBehaviour {
 
-	public class tweetComparer : IComparer  {
-		// Calls CaseInsensitiveComparer.Compare with the parameters reversed.
-		int IComparer.Compare( System.Object x, System.Object y )  {
-			TweetSearchTwitterData a = (TweetSearchTwitterData)x;
-			TweetSearchTwitterData b = (TweetSearchTwitterData)y;
-
-			if (a.tweetId > b.tweetId)
-				return 1;
-			if (a.tweetId < b.tweetId)
-				return -1;
-			else
-				return 0;
-		}
-
-		public static tweetComparer instance()
-		{
-			return new tweetComparer ();
-		}
-
-	}
-
-
-
-
 	public GameObject textRender;
 	public InputField hashtag;
 
 	private string tag = "#aurore";
-	private ArrayList tweets;
+	private ArrayList collectedTweets;
 
 
 	// Use this for initialization
@@ -42,93 +18,76 @@ public class Main : MonoBehaviour {
 		var se = new InputField.SubmitEvent ();
 		se.AddListener (setHashtag);
 		hashtag.onEndEdit = se;
-
-		tweets = new ArrayList ();
-		w = File.AppendText(Application.persistentDataPath +"log3.txt");
-//		getTweets ();
+		hashtag.text = tag;
+		collectedTweets = new ArrayList ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown("space")) {
-			Debug.Log ("logging");
-			w = new StreamWriter(Application.dataPath + "Account.txt");
-			foreach (TweetSearchTwitterData twitterData in tweets) {
-				Main.Log (twitterData.tweetId.ToString(), w);
-			}
 
-			w.Close ();
-		}
 	}
 
 	public void setHashtag(string args0)
 	{
 		this.tag = args0;
-		getTweets ();
+		StartCoroutine(getTweets ());
 	}
-
-
-	StreamWriter w;
-
-	public static void Log(string logMessage, TextWriter w)
-	{
-		w.WriteLine (logMessage);
-	}
-
-
-	void getTweets()
+		
+	IEnumerator getTweets()
 	{
 		Debug.Log ("getTweets(): " + tag);
-		TwitterAPI.instance.SearchTwitter(tag, SearchTweetsResultsCallBack);
+		TwitterAPI.instance.SearchTwitter(tag, CollectTweets);
+		yield return tag;
 		Invoke ("getTweets", 10.0f);
-
 	}
 
-	void SearchTweetsResultsCallBack(List<TweetSearchTwitterData> tweetList) {
+	void CollectTweets(List<TweetSearchTwitterData> tweetList) {
 		Debug.Log ("found: " + tweetList.Count.ToString());
-
 		foreach (TweetSearchTwitterData newt in tweetList) {
-			if (!tweetExists (newt)) {
-				tweets.Add (newt);
-//				Log (newt.tweetId.ToString(), w);
+			if (!TweetExistsInCollection (newt)) {
+				collectedTweets.Add (newt);
 			}
-
 		}
 
-//			GameObject tc = Instantiate (textRender);
-//			tc.GetComponent<textCreator>().onNewTex (twitterData);
-			
-		Debug.Log ("current tweets: " + tweets.Count.ToString ());
-
+		ShowTweets ();
 	}
 
-	private bool tweetExists(TweetSearchTwitterData newt)
+	private bool TweetExistsInCollection(TweetSearchTwitterData newt)
 	{
-		foreach (TweetSearchTwitterData prevt in tweets) {
+		foreach (TweetSearchTwitterData prevt in collectedTweets) {
 			if (newt.tweetId == prevt.tweetId) {
 				return true;
 			} 
 		}
-
 		return false;
 	}
 
-	void FindTrendsByLocatiobResultsCallBack(List<TrendByLocationTwitterData> trendList) {
-		foreach(TrendByLocationTwitterData twitterData in trendList) {
-//			Debug.Log("Trend: " + twitterData.ToString());
-		}
-	}
-
-	public void onEvent(Event e){
-		Debug.Log (e);
-	}
-
-	protected void Application_End()
+	private void ShowTweets()
 	{
-//		w.Dispose();
+		foreach (TweetSearchTwitterData tweet in collectedTweets) {
+			if (!tweet.InScreen) {				
+				GameObject tc = Instantiate (textRender);
+				tc.GetComponent<textCreator> ().onNewTex (tweet);
+				Invoke ("ShowTweets", 2.0f);
+				return;
+			}
+		}
+
+//		if (!(collectedTweets[0] as TweetSearchTwitterData).InScreen) 
+//		{
+//			GameObject tc = Instantiate (textRender);
+//			tc.GetComponent<textCreator>().onNewTex (collectedTweets[0] as TweetSearchTwitterData);
+//		}
 
 	}
 
+//	IEnumerator LoadData()
+//	{
+//		string directory = "file://" + Application.dataPath + "/../" + "settings.json";
+//		WWW www = new WWW(directory);
+//		yield return www;
+//		LoadDataromServer( www.text);
+//	}
 
 
 }

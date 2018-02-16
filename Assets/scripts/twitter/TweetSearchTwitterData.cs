@@ -3,8 +3,11 @@ using UnityEngine;
 using System;
 
 public class TweetSearchTwitterData {
+	public bool InScreen = false;
+
 	public string tweetText = "";
 	public string screenName = "";
+	public string name = "";
 	public string profileImageUrl = "";
 	public Int64 retweetCount = 0;
 	public Int64 tweetId = 0;

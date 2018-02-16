@@ -2,9 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/twitter/Main.cs">
     <Files>
-      <File FileName="Assets/scripts/twitter/Main.cs" Line="11" Column="2" />
-      <File FileName="Assets/scripts/textCreator.cs" Line="15" Column="2" />
-      <File FileName="Assets/LookOrigin.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/twitter/Main.cs" Line="62" Column="3" />
+      <File FileName="Assets/scripts/textCreator.cs" Line="21" Column="2" />
+      <File FileName="Assets/LookOrigin.cs" Line="10" Column="66" />
+      <File FileName="Assets/scripts/twitter/TwitterAPI.cs" Line="56" Column="27" />
+      <File FileName="Assets/scripts/twitter/TweetSearchTwitterData.cs" Line="11" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

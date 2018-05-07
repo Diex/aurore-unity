@@ -52,7 +52,7 @@ public class TwitterAPI : MonoBehaviour {
 		SortedDictionary<string, string> twitterParamsDictionary = new SortedDictionary<string, string>
         {
             {"q", keywords},
-			{"count", "100"},
+			{"count", "10"},
 			{"result_type", "recent"},
 		};
 
@@ -124,7 +124,7 @@ public class TwitterAPI : MonoBehaviour {
 	private WWW CreateTwitterAPIQuery(string twitterUrl, SortedDictionary<string, string> twitterParamsDictionary)
 	{
 		string signature = CreateSignature(twitterUrl, twitterParamsDictionary);
-		Debug.Log("OAuth Signature: " + signature);
+	    Debug.Log("OAuth Signature: " + signature);
 		
 		string authHeaderParam = CreateAuthorizationHeaderParameter(signature, this.oauthTimeStamp);
 		Debug.Log("Auth Header: " + authHeaderParam);
